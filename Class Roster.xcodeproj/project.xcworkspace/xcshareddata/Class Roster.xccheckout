@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>30C44E6A-2BC1-4E0D-B5C8-9F2792A3B1CE</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Class Roster</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>1154E94991237A867A702FB2133970803A723889</key>
+		<string>https://github.com/kpham13/f2-assignment7.0.git</string>
+		<key>3BD41BA7DC900AB8B7E4875A429A249029DB5001</key>
+		<string>https://github.com/kpham13/f2-assignment6.0.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Class Roster.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>1154E94991237A867A702FB2133970803A723889</key>
+		<string>../..</string>
+		<key>3BD41BA7DC900AB8B7E4875A429A249029DB5001</key>
+		<string>../../../Class%20Roster</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/kpham13/f2-assignment7.0.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>1154E94991237A867A702FB2133970803A723889</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3BD41BA7DC900AB8B7E4875A429A249029DB5001</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Class%20Roster</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1154E94991237A867A702FB2133970803A723889</string>
+			<key>IDESourceControlWCCName</key>
+			<string>f2-assignment7.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>
