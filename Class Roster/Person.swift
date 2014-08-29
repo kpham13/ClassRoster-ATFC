@@ -14,6 +14,7 @@ class Person: NSObject, NSCoding {
     var lastName : String
     
     var gitHubUserName : String?
+    var headline : String?
     
     var profileImage : UIImage?
     var hasImage = false
@@ -31,6 +32,7 @@ class Person: NSObject, NSCoding {
         self.firstName      = aDecoder.decodeObjectForKey("firstName") as String
         self.lastName       = aDecoder.decodeObjectForKey("lastName") as String
         self.gitHubUserName = aDecoder.decodeObjectForKey("gitHubUserName") as? String
+        self.headline       = aDecoder.decodeObjectForKey("headline") as? String
         self.hasImage       = aDecoder.decodeObjectForKey("hasImage") as Bool
     }
     
@@ -38,6 +40,7 @@ class Person: NSObject, NSCoding {
         aCoder.encodeObject(firstName, forKey: "firstName")
         aCoder.encodeObject(lastName, forKey: "lastName")
         aCoder.encodeObject(gitHubUserName, forKey: "gitHubUserName")
+        aCoder.encodeObject(headline, forKey: "headline")
         aCoder.encodeObject(hasImage, forKey: "hasImage")
     }
     

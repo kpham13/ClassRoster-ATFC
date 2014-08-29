@@ -24,7 +24,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let path = NSBundle.mainBundle().pathForResource("Roster", ofType: "plist")
         let pListArray = NSArray(contentsOfFile: path)
-
+        
         if let savedArray = NSKeyedUnarchiver.unarchiveObjectWithFile(self.pathForPListArchive()) as? NSArray {
             self.teachers = savedArray.objectAtIndex(0) as [Person]
             self.classRoster.append(teachers)
@@ -62,7 +62,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.saveData()
         self.tableView.reloadData()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -85,13 +85,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView!, numberOfRowsInSection section: Int) -> Int {
         return self.classRoster[section].count
     }
-
+    
     func tableView(tableView: UITableView!, cellForRowAtIndexPath indexPath: NSIndexPath!) -> UITableViewCell! {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
         
         var personForRow = self.classRoster[indexPath.section][indexPath.row]
         cell.textLabel.text = personForRow.fullName()
-
+        
         // ** Adjust imageView frame and size OR should I pop a UIImageView controller inside prototype cell. **
         // cell.imageView.frame = CGRectMake(0, 0, 32, 32)
         // cell.imageView.bounds = CGRectMake(0, 0, 32, 32)
@@ -113,7 +113,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             var detailViewController = segue.destinationViewController as DetailViewController
             let section = tableView.indexPathForSelectedRow().section
             let row = tableView.indexPathForSelectedRow().row
-
+            
             var personForRow = self.classRoster[section][row]
             
             detailViewController.selectedPerson = personForRow
@@ -124,11 +124,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func cancelButton(segue: UIStoryboardSegue) {
         
     }
-
+    
     @IBAction func unwindFromAddRoster(segue: UIStoryboardSegue) {
         
     }
-
+    
     func saveData() {
         var saveArray = self.classRoster
         NSKeyedArchiver.archiveRootObject(saveArray, toFile: self.pathForPListArchive())
@@ -161,4 +161,3 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
 }
-

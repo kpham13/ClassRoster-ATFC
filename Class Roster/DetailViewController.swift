@@ -17,16 +17,18 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     var imageDownloadQueue = NSOperationQueue()
     
     @IBOutlet weak var fullNameLbl: UILabel!
+    @IBOutlet weak var headlineLbl: UILabel!
     @IBOutlet weak var firstNameTxtField: UITextField!
     @IBOutlet weak var lastNameTxtField: UITextField!
     @IBOutlet weak var gitHubTxtField: UITextField!
+    @IBOutlet weak var headlineTxtField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageActivity: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.firstNameTxtField.delegate = self
         self.lastNameTxtField.delegate = self
-        self.gitHubTxtField.delegate = self
         
         self.imageView.layer.cornerRadius = self.imageView.frame.size.width / 6 // 2=Circle, 3,4,5=RoundedCorners, 10=
         self.imageView.clipsToBounds = true
@@ -50,18 +52,25 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
             self.gitHubTxtField.text = selectedPerson!.gitHubUserName
         }
         
+        if self.selectedPerson!.headline != nil {
+            self.headlineLbl.text = selectedPerson!.headline
+            self.headlineTxtField.text = selectedPerson!.headline
+        } else {
+            self.headlineLbl.text = ""
+        }
+        
         if self.selectedPerson!.profileImage != nil {
             self.imageView.image = self.selectedPerson!.profileImage
         } else {
             self.imageView.image = self.defaultProfileImage
         }
-        
     }
     
     override func viewWillDisappear(animated: Bool) {
-        self.selectedPerson?.firstName = self.firstNameTxtField.text
-        self.selectedPerson?.lastName = self.lastNameTxtField.text
-        self.selectedPerson?.gitHubUserName = self.gitHubTxtField.text
+        self.selectedPerson!.firstName = self.firstNameTxtField.text
+        self.selectedPerson!.lastName = self.lastNameTxtField.text
+        self.selectedPerson!.gitHubUserName = self.gitHubTxtField.text
+        self.selectedPerson!.headline = self.headlineTxtField.text
     }
 
     override func didReceiveMemoryWarning() {
@@ -134,12 +143,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     }
     
     func gitHubProfileImage() {
-        var gitHubURLString = "https://api.github.com/users/\(selectedPerson!.gitHubUserName!)"
+        var gitHubURLString = "https://api.github.com/users/\(self.selectedPerson!.gitHubUserName!)"
         var gitHubURL = NSURL(string: gitHubURLString)
         var profilePhotoURL = NSURL()
-        println("Beginning: Why does this run even when gitHubUserName is nil? (So gitHubUserName isn't nil?)")
-        
-        // self.activityIndicator.startAnimating()
+        println("Connecting to GitHub...")
+        self.imageActivity.startAnimating()
         
         let session = NSURLSession.sharedSession()
         let task = session.dataTaskWithURL(gitHubURL, completionHandler: { (data, response, error) -> Void in
@@ -173,13 +181,18 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                         self.gitHubTxtField.text = self.selectedPerson!.gitHubUserName
                         self.imageView.image = profilePhotoImage
-                        // self.activityIndicator.stopAnimating()
+                        self.imageActivity.stopAnimating()
                     })
                 }
+                
                 // downloadOperation.qualityOfService = NSQualityOfService.Background
                 self.imageDownloadQueue.addOperation(downloadOperation)
                 println("Threading executed")
             } else {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                    self.imageActivity.stopAnimating()
+                })
+                
                 var userVerificationAlert = UIAlertController(title: "Oops!", message: "This GitHub username doesn't exist.", preferredStyle: UIAlertControllerStyle.Alert)
                 userVerificationAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
                 self.presentViewController(userVerificationAlert, animated: true, completion: nil)
@@ -187,6 +200,30 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         })
         
         task.resume()
+    }
+    
+    @IBAction func headlineAddButton(sender: UIButton) {
+        var headlineAlert = UIAlertController(title: "Your Headline", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        headlineAlert.addTextFieldWithConfigurationHandler(configurationTextField)
+        headlineAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        headlineAlert.addAction(UIAlertAction(title: "Done", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) in
+            if self.textField.text != "" {
+                self.headlineFunc()
+            } else if self.textField.text != " " {
+                self.headlineFunc()
+            }
+            
+        }))
+        
+        self.presentViewController(headlineAlert, animated: true, completion: nil)
+
+    }
+    
+    func headlineFunc() {
+        self.selectedPerson!.headline = self.textField.text
+        self.headlineTxtField.text = self.selectedPerson!.headline
+        self.headlineLbl.text = "\"\(self.selectedPerson!.headline!)\""
+        println(self.selectedPerson!.headline!)
     }
     
 }
