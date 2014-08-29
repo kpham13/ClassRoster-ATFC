@@ -10,6 +10,8 @@
 	<string>Class Roster</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>0579BE42C91C26E831AFD9B258C6C3C989073646</key>
+		<string>https://github.com/kpham13/ClassRoster-ATFC.git</string>
 		<key>1154E94991237A867A702FB2133970803A723889</key>
 		<string>https://github.com/kpham13/f2-assignment7.0.git</string>
 		<key>3BD41BA7DC900AB8B7E4875A429A249029DB5001</key>
@@ -19,17 +21,19 @@
 	<string>Class Roster.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>1154E94991237A867A702FB2133970803A723889</key>
+		<key>0579BE42C91C26E831AFD9B258C6C3C989073646</key>
 		<string>../..</string>
+		<key>1154E94991237A867A702FB2133970803A723889</key>
+		<string>../../../f2-assignment7.0</string>
 		<key>3BD41BA7DC900AB8B7E4875A429A249029DB5001</key>
 		<string>../../../Class%20Roster</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/kpham13/f2-assignment7.0.git</string>
+	<string>https://github.com/kpham13/ClassRoster-ATFC.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>1154E94991237A867A702FB2133970803A723889</string>
+	<string>0579BE42C91C26E831AFD9B258C6C3C989073646</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -39,6 +43,14 @@
 			<string>3BD41BA7DC900AB8B7E4875A429A249029DB5001</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Class%20Roster</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0579BE42C91C26E831AFD9B258C6C3C989073646</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ClassRoster-ATFC</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>

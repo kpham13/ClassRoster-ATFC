@@ -1,8 +1,8 @@
 //
 //  Person.swift
-//  Class Roster Final
+//  Class Roster - ATFC
 //
-//  Created by Kevin Pham on 8/26/14.
+//  Created by Kevin Pham on 8/28/14.
 //  Copyright (c) 2014 Kevin Pham. All rights reserved.
 //
 

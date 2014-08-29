@@ -1,8 +1,8 @@
 //
 //  DetailViewController.swift
-//  Class Roster Final
+//  Class Roster - ATFC
 //
-//  Created by Kevin Pham on 8/26/14.
+//  Created by Kevin Pham on 8/28/14.
 //  Copyright (c) 2014 Kevin Pham. All rights reserved.
 //
 
@@ -38,12 +38,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     }
     
     override func viewDidAppear(animated: Bool) {
-        if self.selectedPerson!.profileImage == nil {
-            if self.selectedPerson!.gitHubUserName != nil {
-                gitHubProfileImage()
-            }
-        }
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -51,7 +45,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         self.fullNameLbl.text = selectedPerson!.fullName()
         self.firstNameTxtField.text = selectedPerson!.firstName
         self.lastNameTxtField.text = selectedPerson!.lastName
-        self.gitHubTxtField.text = selectedPerson!.gitHubUserName
+        
+        if self.selectedPerson!.gitHubUserName != nil {
+            self.gitHubTxtField.text = selectedPerson!.gitHubUserName
+        }
         
         if self.selectedPerson!.profileImage != nil {
             self.imageView.image = self.selectedPerson!.profileImage
@@ -117,13 +114,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         return documentsDirectory
     }
     
-    @IBAction func infoButton(sender: UIButton) {
+    @IBAction func gitHubAddButton(sender: UIButton) {
         var gitHubAlert = UIAlertController(title: "GitHub", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
         gitHubAlert.addTextFieldWithConfigurationHandler(configurationTextField)
         gitHubAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
         gitHubAlert.addAction(UIAlertAction(title: "Done", style: UIAlertActionStyle.Default, handler: { (UIAlertAction) in
-            self.gitHubTxtField.text = self.textField.text
-            self.selectedPerson!.gitHubUserName = self.gitHubTxtField.text
+            self.selectedPerson!.gitHubUserName = self.textField.text
             self.gitHubProfileImage()
         }))
         self.presentViewController(gitHubAlert, animated: true, completion: nil)
@@ -132,7 +128,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
     func configurationTextField (textField: UITextField!) {
         if let tField = textField {
             self.textField = textField!
-            textField.placeholder = "GitHub Username"
+            textField.placeholder = "Enter GitHub Username"
             // self.textField.text = "Hello world!"
         }
     }
@@ -175,6 +171,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                     self.selectedPerson!.hasImage = true
                     self.saveImageToPhone(profilePhotoImage)
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        self.gitHubTxtField.text = self.selectedPerson!.gitHubUserName
                         self.imageView.image = profilePhotoImage
                         // self.activityIndicator.stopAnimating()
                     })
@@ -182,6 +179,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
                 // downloadOperation.qualityOfService = NSQualityOfService.Background
                 self.imageDownloadQueue.addOperation(downloadOperation)
                 println("Threading executed")
+            } else {
+                var userVerificationAlert = UIAlertController(title: "Oops!", message: "This GitHub username doesn't exist.", preferredStyle: UIAlertControllerStyle.Alert)
+                userVerificationAlert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: nil))
+                self.presentViewController(userVerificationAlert, animated: true, completion: nil)
             }
         })
         
