@@ -3,6 +3,11 @@ ClassRoster-ATFC
 
 Class Roster iOS App | After the Final Class
 
+Update 3:
+
+- Search Bar
+- Updated add person UI design (AddViewController)
+
 Update 2:
 
 - Headlines
