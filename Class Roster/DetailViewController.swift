@@ -35,6 +35,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         self.imageView.layer.borderWidth = 3.0
         self.imageView.layer.borderColor = UIColor.whiteColor().CGColor
         
+        // UIGestureRecognizer
+        
         let imageSelect = UITapGestureRecognizer(target: self, action: NSSelectorFromString("imageTap"))
         self.imageView.addGestureRecognizer(imageSelect)
     }
@@ -83,6 +85,21 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         return true
     }
     
+    // MARK: - Image Picker Controller
+    
+    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+        var editedImage = info[UIImagePickerControllerEditedImage] as UIImage
+        self.imageView.image = editedImage
+        self.selectedPerson!.profileImage = editedImage
+        self.selectedPerson!.hasImage = true
+        self.saveImageToPhone(editedImage)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController!) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     func imageTap() {
         var profileImageAction = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         profileImageAction.addAction(UIAlertAction(title: "Take Photo", style: UIAlertActionStyle.Default, handler: nil))
@@ -98,18 +115,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         self.presentViewController(profileImageAction, animated: true, completion: nil)
     }
     
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]!) {
-        picker.dismissViewControllerAnimated(true, completion: nil)
-        var editedImage = info[UIImagePickerControllerEditedImage] as UIImage
-        self.imageView.image = editedImage
-        self.selectedPerson!.profileImage = editedImage
-        self.selectedPerson!.hasImage = true
-        self.saveImageToPhone(editedImage)
-    }
-    
-    func imagePickerControllerDidCancel(picker: UIImagePickerController!) {
-        picker.dismissViewControllerAnimated(true, completion: nil)
-    }
+    // MARK: - Data & Image Persistance
     
     func saveImageToPhone(image: UIImage) {
         var pngData = UIImagePNGRepresentation(image)
@@ -122,6 +128,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIImagePicker
         let documentsDirectory = paths[0]
         return documentsDirectory
     }
+    
+    // MARK: - GitHub, JSON, & Concurrent Programming
     
     @IBAction func gitHubAddButton(sender: UIButton) {
         var gitHubAlert = UIAlertController(title: "GitHub", message: nil, preferredStyle: UIAlertControllerStyle.Alert)

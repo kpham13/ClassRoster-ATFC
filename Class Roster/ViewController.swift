@@ -25,6 +25,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.dataSource = self
         self.tableView.delegate = self
         
+        // NSKeyedArchiver, Data Persistance, and Plist
+        
         let path = NSBundle.mainBundle().pathForResource("Roster", ofType: "plist")
         let pListArray = NSArray(contentsOfFile: path)
         
@@ -71,6 +73,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: - Table View Data Source
     
     func numberOfSectionsInTableView(tableView: UITableView!) -> Int {
         if tableView == self.searchDisplayController!.searchResultsTableView {
@@ -130,6 +134,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+    // MARK: - Navigation
+    
     override func prepareForSegue(segue: UIStoryboardSegue!, sender: AnyObject!) {
         if segue.identifier == "showDetail" {
             let detailViewController = segue.destinationViewController as DetailViewController
@@ -156,6 +162,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func unwindFromAddRoster(segue: UIStoryboardSegue) {
         
     }
+    
+    // MARK: - NSKeyedArchiver
     
     func saveData() {
         var saveArray = self.classRoster
@@ -187,6 +195,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
     }
+    
+    // MARK: - Search/Scope Bar
     
     func filterContentForSearchText(searchText: String/*, scope: String = "All"*/) {
         self.filteredRoster = self.searchDataSource.filter({ (person: Person) -> Bool in
